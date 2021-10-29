@@ -38,12 +38,12 @@ class QueuingSystemModel:
         self.channel = simpy.Resource(env, channels_number)
 
     def application_processing(self, application):
-        print('Application ' + str(application) + ' is processing.')
+        # print('Application ' + str(application) + ' is processing.')
         # Trigger an event after a certain amount of time has passed
         yield self.env.timeout(np.random.exponential(1 / self.service_flow_rate))
 
     def application_waiting(self, application):
-        print('Application ' + str(application) + ' is waiting.')
+        # print('Application ' + str(application) + ' is waiting.')
         yield self.env.timeout(np.random.exponential(1 / self.queue_waiting_flow_rate))
 
 
@@ -58,7 +58,7 @@ def send_application(env, application, model):
 
     # Generate a request to use a channel
     with model.channel.request() as request:
-        print('Application ' + str(application) + ' is sent.')
+        # print('Application ' + str(application) + ' is sent.')
         current_queue_len = len(model.channel.queue)
         # Number of users currently using the resource
         current_count_len = model.channel.count
@@ -73,10 +73,10 @@ def send_application(env, application, model):
             if request in res:
                 yield env.process(model.application_processing(application))
             model.total_wait_times.append(env.now - start_time)
-            print('Application ' + str(application) + ' is processed.')
+            # print('Application ' + str(application) + ' is processed.')
         else:
             model.applications_rejected.append(channels_number + max_queue_length + 1)
-            print('Application ' + str(application) + ' is rejected.')
+            # print('Application ' + str(application) + ' is rejected.')
             model.queue_times.append(0)
             model.total_wait_times.append(0)
 
