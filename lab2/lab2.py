@@ -1,4 +1,4 @@
-from math import factorial
+from math import factorial, inf
 import simpy
 import numpy as np
 from matplotlib import pyplot as plt
@@ -14,8 +14,8 @@ fig, axs = plt.subplots(2)
 
 
 class QueuingSystemModel:
-    def __init__(self, env, channels_number, service_flow_rate, applications_flow_rate, queue_waiting_flow_rate,
-                 max_queue_length):
+    def __init__(self, env, channels_number, service_flow_rate, applications_flow_rate, queue_waiting_flow_rate=None,
+                 max_queue_length=inf):
         self.env = env
         self.service_flow_rate = service_flow_rate
         self.applications_flow_rate = applications_flow_rate
@@ -62,23 +62,31 @@ def send_application(env, application, model):
         current_queue_len = len(model.channel.queue)
         # Number of users currently using the resource
         current_count_len = model.channel.count
-
-        if current_queue_len <= model.max_queue_length:
-            # Moment in time when application enters model
+        if model.max_queue_length != inf:
+            if current_queue_len <= model.max_queue_length:
+                # Moment in time when application enters model
+                start_time = env.now
+                model.applications_done.append(current_queue_len + current_count_len)
+                # An application ether waits for a channel to become free or starts to process
+                res = yield request | env.process(model.application_waiting(application))
+                model.queue_times.append(env.now - start_time)
+                if request in res:
+                    yield env.process(model.application_processing(application))
+                model.total_wait_times.append(env.now - start_time)
+                # print('Application ' + str(application) + ' is processed.')
+            else:
+                model.applications_rejected.append(channels_number + max_queue_length + 1)
+                # print('Application ' + str(application) + ' is rejected.')
+                model.queue_times.append(0)
+                model.total_wait_times.append(0)
+        else:
             start_time = env.now
             model.applications_done.append(current_queue_len + current_count_len)
-            # An application ether waits for a channel to become free or starts to pro
-            res = yield request | env.process(model.application_waiting(application))
+            # An application waits for a channel to become available
+            yield request
             model.queue_times.append(env.now - start_time)
-            if request in res:
-                yield env.process(model.application_processing(application))
+            yield env.process(model.application_processing(application))
             model.total_wait_times.append(env.now - start_time)
-            # print('Application ' + str(application) + ' is processed.')
-        else:
-            model.applications_rejected.append(channels_number + max_queue_length + 1)
-            # print('Application ' + str(application) + ' is rejected.')
-            model.queue_times.append(0)
-            model.total_wait_times.append(0)
 
 
 def run_model(env, model):
@@ -86,13 +94,13 @@ def run_model(env, model):
 
     while True:
         yield env.timeout(np.random.exponential(1 / model.applications_flow_rate))
-        application += 1
         env.process(send_application(env, application, model))
+        application += 1
 
 
 def find_average_qs_len(total_qs_list):
     average_qs_len = np.array(total_qs_list).mean()
-    print('Average amount of applications in QS is: ' + str(average_qs_len))
+    print('Average amount of applications in QS (both processing and waiting): ' + str(average_qs_len))
     return average_qs_len
 
 
@@ -130,14 +138,14 @@ def find_empiric_probabilities(applications_done, applications_rejected, queue_t
     P_reject = len(applications_rejected) / total_applications_amount
     print('Empiric probability of rejection: ' + str(P_reject))
     Q = 1 - P_reject
-    print('Empiric Q:' + str(Q))
+    print('Empiric Q: ' + str(Q))
     A = applications_flow_rate * Q
     print('Empiric A: ' + str(A))
     find_average_queue_len(queue_list)
     find_average_qs_len(total_qs_list)
     find_average_queue_time(queue_times)
     average_full_channels = Q * applications_flow_rate / service_flow_rate
-    print('Empiric average amount of busy channels: ' + str(average_full_channels))
+    print('Average amount of busy channels: ' + str(average_full_channels))
     find_average_wait_time(total_wait_times)
     axs[0].hist(total_wait_times, 50)
     axs[0].set_title('Wait times')

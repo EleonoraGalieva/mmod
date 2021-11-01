@@ -2,7 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="3e3f97ec-95bf-41ee-b794-a7a88ae4d422" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lab2.py" beforeDir="false" afterPath="$PROJECT_DIR$/lab2.py" afterDir="false" />
     </list>
@@ -33,7 +32,7 @@
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
   </component>
-  <component name="RunManager">
+  <component name="RunManager" selected="Python.lab3_task">
     <configuration name="lab2" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="lab1" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -55,8 +54,30 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
+    <configuration name="lab3_task" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="lab1" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/lab3_task.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.lab3_task" />
         <item itemvalue="Python.lab2" />
       </list>
     </recent_temporary>
@@ -75,26 +96,26 @@
     <servers />
   </component>
   <component name="WindowStateProjectService">
-    <state x="549" y="167" key="FileChooserDialogImpl" timestamp="1635427815291">
+    <state x="549" y="167" key="FileChooserDialogImpl" timestamp="1635766503922">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="549" y="167" key="FileChooserDialogImpl/0.0.1536.824@0.0.1536.824" timestamp="1635427815291" />
-    <state width="1515" height="240" key="GridCell.Tab.0.bottom" timestamp="1635547271265">
+    <state x="549" y="167" key="FileChooserDialogImpl/0.0.1536.824@0.0.1536.824" timestamp="1635766503922" />
+    <state width="1515" height="399" key="GridCell.Tab.0.bottom" timestamp="1635785676686">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1515" height="240" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1635547271265" />
-    <state width="1515" height="240" key="GridCell.Tab.0.center" timestamp="1635547271265">
+    <state width="1515" height="399" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1635785676686" />
+    <state width="1515" height="399" key="GridCell.Tab.0.center" timestamp="1635785676686">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1515" height="240" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1635547271265" />
-    <state width="1515" height="240" key="GridCell.Tab.0.left" timestamp="1635547271265">
+    <state width="1515" height="399" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1635785676686" />
+    <state width="1515" height="399" key="GridCell.Tab.0.left" timestamp="1635785676686">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1515" height="240" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1635547271265" />
-    <state width="1515" height="240" key="GridCell.Tab.0.right" timestamp="1635547271265">
+    <state width="1515" height="399" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1635785676686" />
+    <state width="1515" height="399" key="GridCell.Tab.0.right" timestamp="1635785676686">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1515" height="240" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1635547271265" />
+    <state width="1515" height="399" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1635785676686" />
     <state width="1515" height="261" key="GridCell.Tab.1.bottom" timestamp="1635545322928">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
@@ -111,10 +132,10 @@
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state width="1515" height="261" key="GridCell.Tab.1.right/0.0.1536.824@0.0.1536.824" timestamp="1635545322928" />
-    <state x="465" y="236" key="com.intellij.ide.util.TipDialog" timestamp="1635546193847">
+    <state x="465" y="236" key="com.intellij.ide.util.TipDialog" timestamp="1635765590861">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="465" y="236" key="com.intellij.ide.util.TipDialog/0.0.1536.824@0.0.1536.824" timestamp="1635546193847" />
+    <state x="465" y="236" key="com.intellij.ide.util.TipDialog/0.0.1536.824@0.0.1536.824" timestamp="1635765590861" />
     <state x="425" y="66" width="670" height="676" key="search.everywhere.popup" timestamp="1635538832134">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
