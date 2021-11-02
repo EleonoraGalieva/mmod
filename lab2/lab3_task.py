@@ -38,7 +38,7 @@ if __name__ == '__main__':
     # вероятности состояний СМО, среднее число z составов, связанных с горкой, среднее число составов в очереди,
     # среднее время tCOCT пребывания состава в СМО, среднее время tQ пребывания состава в очереди.
 
-    channels_number = 2
+    channels_number = 1
     print('Amount of channels (n): ' + str(channels_number))
     service_flow_rate = 3
     print('Service flow rate (mu): ' + str(service_flow_rate))
