@@ -1,17 +1,19 @@
-from math import inf
+from math import factorial
 import numpy as np
 import simpy
 
 from lab2 import QueuingSystemModel, find_empiric_probabilities, run_model
 
 
-def find_theoretical_probabilities(applications_flow_rate, service_flow_rate):
+# For n channels and max_queue_len -> inf
+def find_theoretical_probabilities(n, applications_flow_rate, service_flow_rate):
     print('-------------------Theoretical---------------------')
     ro = applications_flow_rate / service_flow_rate
-    p0 = 1 - ro
+    P = 0
+    p0 = (sum([ro ** i / factorial(i) for i in range(n)]) + (ro ** n / factorial(n - 1)) * (1 / (n - ro))) ** -1
     print('P0: ' + str(p0))
-    for k in range(1, 6):
-        pk = ro ** k * p0
+    for k in range(1, n + 1):
+        pk = ro ** k * p0 / factorial(k)
         print('P' + str(k) + ': ' + str(pk))
     # Because queue has no max length
     P_rej = 0
@@ -20,13 +22,13 @@ def find_theoretical_probabilities(applications_flow_rate, service_flow_rate):
     print('Theoretical Q: ', Q)
     A = applications_flow_rate * Q
     print('Theoretical A: ', A)
-    L_q = ro ** 2 / p0
+    L_q = ro ** (n + 1) / factorial(n) * n * p0 / (n - ro) ** 2
     print('Average queue length is: ', L_q)
-    L_pr = ro*Q
+    L_pr = ro * Q
     print('Average amount of applications in QS (both processing and waiting): ', L_pr + L_q)
-    print('Average time in queue is: ', L_q / A)
+    print('Average time in queue is: ', L_q / applications_flow_rate)
     print('Average amount of busy channels: ', Q * ro)
-    print('Average time in QS is: ',  (L_pr + L_q) / A)
+    print('Average time in QS is: ', (L_pr + L_q) / applications_flow_rate)
 
 
 if __name__ == '__main__':
@@ -53,6 +55,6 @@ if __name__ == '__main__':
                                np.array(model.queue_times),
                                np.array(model.total_wait_times),
                                np.array(model.total_qs_list),
-                               np.array(model.queue_list), channels_number, 5, applications_flow_rate,
+                               np.array(model.queue_list), channels_number, 1, applications_flow_rate,
                                service_flow_rate)
-    find_theoretical_probabilities(applications_flow_rate, service_flow_rate)
+    find_theoretical_probabilities(channels_number, applications_flow_rate, service_flow_rate)
