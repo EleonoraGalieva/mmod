@@ -4,13 +4,12 @@ import numpy as np
 from matplotlib import pyplot as plt
 from matplotlib import animation
 
+
 # channels_number - n
 # service_flow_rate - mu
 # applications_flow_rate - lambda
 # max_queue_length - m
 # queue_waiting_flow_rate - v
-
-fig, axs = plt.subplots(2)
 
 
 class QueuingSystemModel:
@@ -86,6 +85,7 @@ def send_application(env, application, model):
             yield request
             model.queue_times.append(env.now - start_time)
             yield env.process(model.application_processing(application))
+
             model.total_wait_times.append(env.now - start_time)
 
 
@@ -141,15 +141,13 @@ def find_empiric_probabilities(applications_done, applications_rejected, queue_t
     print('Empiric Q: ' + str(Q))
     A = applications_flow_rate * Q
     print('Empiric A: ' + str(A))
-    find_average_queue_len(queue_list)
+    average_queue_len = find_average_queue_len(queue_list)
     find_average_qs_len(total_qs_list)
     find_average_queue_time(queue_times)
     average_full_channels = Q * applications_flow_rate / service_flow_rate
     print('Average amount of busy channels: ' + str(average_full_channels))
-    find_average_wait_time(total_wait_times)
-    axs[0].hist(total_wait_times, 50)
-    axs[0].set_title('Wait times')
-    axs[1].hist(total_qs_list, 50)
+    average_wait_time = find_average_wait_time(total_wait_times)
+    return average_wait_time,total_wait_times, average_queue_len, queue_list,P
 
 
 def find_theoretical_probabilities(num_channel, max_queue_length, applications_flow_rate, service_flow_rate,
@@ -226,4 +224,3 @@ if __name__ == '__main__':
     find_theoretical_probabilities(channels_number, max_queue_length, applications_flow_rate, service_flow_rate,
                                    queue_waiting_flow_rate)
     print('End of first example')
-    plt.show()
